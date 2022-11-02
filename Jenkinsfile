@@ -7,7 +7,7 @@ node  {
         }
     stage('Build image') {
           agent {
-                docker { }
+                docker { image 'node:12-alpine' }
             }
             sh "docker build -t node-api ."
     }

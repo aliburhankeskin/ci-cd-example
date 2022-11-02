@@ -1,28 +1,23 @@
-pipeline {
-  agent any
-    
-  tools {NodeJS "node"}
-    
-  stages {
-        
-    stage('Git') {
-      steps {
-        git 'https://github.com/aliburhankeskin/ci-cd-example.git'
-      }
+node  {
+
+    try {
+
+   stage('Clone repository') {
+            checkout scm
+        }
+    stage('Build image') {
+            sh "docker build -t node-api ."
     }
-     
-    stage('Build') {
-      steps {
-        sh 'npm install'
-        sh '<<Build Command>>'
-      }
-    }  
-    
-            
-    stage('Test') {
-      steps {
-        sh 'node test'
-      }
+
+    stage('Restart Application') {
+            sh "docker run -dp 3000:3000 node-api"
+            echo = "Compose Upppp!"
     }
-  }
+
+    } catch (e) {
+       currentBuild.result = "FAILED"
+       throw e
+     } finally {
+    }
+
 }

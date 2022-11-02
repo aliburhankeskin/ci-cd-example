@@ -6,6 +6,9 @@ node  {
             checkout scm
         }
     stage('Build image') {
+          agent {
+                docker { }
+            }
             sh "docker build -t node-api ."
     }
 

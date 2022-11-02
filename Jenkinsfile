@@ -1,26 +1,17 @@
-node  {
-
-    try {
-
-   stage('Clone repository') {
-            checkout scm
-        }
-    stage('Build image') {
-          agent {
-                docker { image 'node:12-alpine' }
-            }
-            sh "docker build -t node-api ."
+pipeline {
+  
+  agent none
+  
+  stages {
+  	 stage('Clone Repository') {
+         checkout scm
+    }
+    stage('Docker Build') {
+        sh "docker build -t node-api ."
     }
 
-    stage('Restart Application') {
-            sh "docker run -dp 3000:3000 node-api"
-            echo = "Compose Upppp!"
+    stage('App Start') {
+        sh "docker run -dp 3000:3000 node-api"
     }
-
-    } catch (e) {
-       currentBuild.result = "FAILED"
-       throw e
-     } finally {
-    }
-
+  }
 }

@@ -4,8 +4,3 @@ services:
     nodejs_app:
         container_name: nodejs_app
         image: node-api
-
-networks:
-    default:
-       external:
-            name: test

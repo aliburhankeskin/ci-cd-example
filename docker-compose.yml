@@ -4,3 +4,8 @@ services:
     nodejs_app:
         container_name: nodejs_app
         image: node-api
+        ports:
+            - "3000:3000"
+networks:
+    default:
+        driver: bridge

@@ -7,4 +7,5 @@ services:
 
 networks:
     default:
-        driver: bridge
+       external:
+            name: test

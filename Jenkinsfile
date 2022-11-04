@@ -6,12 +6,12 @@ node  {
             checkout scm
         }
         
-        stage('Build image') {
-            sh "docker build -t node-api ."
-        }
-
         stage('Remove Old Image') {
             sh "docker rmi -f node-api"
+        }
+
+        stage('Build image') {
+            sh "docker build -t node-api ."
         }
 
         stage('App Start') {
